@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Register</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-progress-bar
+        *ngIf="loading"
+        style="position: fixed"
+        type="indeterminate"
+    ></ion-progress-bar>
+    <form (submit)="authenticate(email, password, passwordConfirmation)">
+        <ion-grid
+            style="display: flex; flex-direction: column"
+            class="ion-justify-content-center ion-align-items-center ion-text-center"
+        >
+            <ion-row>
+                <ion-input
+                    required
+                    autofocus
+                    inputmode="email"
+                    name="username"
+                    [(ngModel)]="email"
+                    placeholder="E-mail"
+                ></ion-input>
+            </ion-row>
+            <ion-row>
+                <ion-input
+                    required
+                    name="password"
+                    type="password"
+                    [(ngModel)]="password"
+                    placeholder="Password"
+                ></ion-input>
+            </ion-row>
+            <ion-row>
+                <ion-input
+                    required
+                    name="passwordConfirmation"
+                    type="password"
+                    [(ngModel)]="passwordConfirmation"
+                    placeholder="Re-enter password"
+                ></ion-input>
+            </ion-row>
+            <ion-row margin>
+                <ion-button type="submit">Register</ion-button>
+            </ion-row>
+            <ion-row margin>
+                <a [routerLink]="['/login']">I already have an account</a>
+            </ion-row>
+            <ion-row *ngIf="error">
+                <ion-label color="danger">{{error}}</ion-label>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
