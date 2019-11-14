@@ -31,7 +31,7 @@ export class RegisterPage implements OnInit {
                     });
             })
             .catch(e => {
-                this.error = e.message;
+                this.setError(e.message);
                 this.loading = false;
             });
     }
@@ -42,15 +42,16 @@ export class RegisterPage implements OnInit {
         passwordConfirmation: string
     ) {
         if ([email, password, passwordConfirmation].some(i => i.length < 1)) {
-            console.log('Missing input');
+            this.setError('Please fill out all fields');
         } else if (password === passwordConfirmation) {
-            console.log(email);
-            console.log(password);
-            console.log(passwordConfirmation);
             this.tryRegisterAndLogin(email, password);
         } else {
-            console.log('Passwords does not match');
-            this.error = 'Passwords does not match';
+            this.setError('Passwords does not match');
         }
+    }
+
+    setError(error: string) {
+        this.error = error;
+        setTimeout(() => (this.error = null), 2000);
     }
 }
