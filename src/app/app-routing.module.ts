@@ -28,6 +28,14 @@ const routes: Routes = [
                 m => m.RegisterPageModule
             ),
         ...canActivate(redirectLoggedInTo(['home']))
+    },
+    {
+        path: 'calendar',
+        loadChildren: () =>
+            import('./calendar/calendar.module').then(
+                m => m.CalendarPageModule
+            ),
+        ...canActivate(redirectUnauthorizedTo(['login']))
     }
 ];
 
