@@ -10,16 +10,10 @@ import {
 const routes: Routes = [
     { path: '', redirectTo: 'room-list', pathMatch: 'full' },
     {
-        path: 'home',
-        loadChildren: () =>
-            import('./home/home.module').then(m => m.HomePageModule),
-        ...canActivate(redirectUnauthorizedTo(['login']))
-    },
-    {
         path: 'login',
         loadChildren: () =>
             import('./login/login.module').then(m => m.LoginPageModule),
-        ...canActivate(redirectLoggedInTo(['home']))
+        ...canActivate(redirectLoggedInTo(['']))
     },
     {
         path: 'register',
@@ -27,7 +21,7 @@ const routes: Routes = [
             import('./register/register.module').then(
                 m => m.RegisterPageModule
             ),
-        ...canActivate(redirectLoggedInTo(['home']))
+        ...canActivate(redirectLoggedInTo(['']))
     },
     {
         path: 'calendar',

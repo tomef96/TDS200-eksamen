@@ -16,7 +16,8 @@
             ></ion-icon>
         </ion-list-header>
         <ion-searchbar class="ion-padding-horizontal"></ion-searchbar>
-        <app-room-list-item></app-room-list-item>
-        <app-room-list-item></app-room-list-item>
+        <div *ngFor="let room of rooms | async">
+            <app-room-list-item [room]="room"></app-room-list-item>
+        </div>
     </ion-list>
 </ion-content>

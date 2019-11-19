@@ -1,6 +1,11 @@
-<ion-item>
+<ion-item lines="none">
     <ion-card>
-        <ion-img [src]="room.image"></ion-img>
+        <ion-img
+            [src]="
+                room.image ||
+                'https://venncubed.co.za/backend/wp-content/uploads/2017/10/placeholder.png'
+            "
+        ></ion-img>
         <ion-card-header>
             <ion-card-subtitle>{{ room.position }}</ion-card-subtitle>
             <ion-card-title>{{ room.description }}</ion-card-title>
@@ -9,9 +14,9 @@
         <ion-card-content
             style="display: flex; flex-direction: row; justify-content: space-between"
         >
-            <ion-label>{{ room.price }}</ion-label>
+            <ion-label>{{ room.price }}kr/t</ion-label>
             <ion-label>
-                {{ room.availableHours }}
+                {{ room.availableStart }}-{{ room.availableEnd }}
             </ion-label>
         </ion-card-content>
     </ion-card>

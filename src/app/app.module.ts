@@ -15,6 +15,8 @@ import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { Camera } from '@ionic-native/camera/ngx';
+
 const firebaseConfig = {
     apiKey: 'AIzaSyCxsTfXYqgdTTJBBaU_f8mRNpDh4xKD-C4',
     authDomain: 'tds200-h19-5002.firebaseapp.com',
@@ -39,6 +41,7 @@ const firebaseConfig = {
         AngularFireAuthGuardModule
     ],
     providers: [
+        Camera,
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

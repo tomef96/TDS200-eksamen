@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
         this.fireAuth.auth
             .signInWithEmailAndPassword(email, password)
             .then(() => {
-                this.router.navigate(['home']);
+                this.router.navigate(['']);
             })
             .catch(e => {
                 this.setError(e.message);
