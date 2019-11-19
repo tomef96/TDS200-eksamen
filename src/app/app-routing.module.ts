@@ -8,7 +8,7 @@ import {
 } from '@angular/fire/auth-guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: 'room-list', pathMatch: 'full' },
     {
         path: 'home',
         loadChildren: () =>
@@ -34,6 +34,14 @@ const routes: Routes = [
         loadChildren: () =>
             import('./calendar/calendar.module').then(
                 m => m.CalendarPageModule
+            ),
+        ...canActivate(redirectUnauthorizedTo(['login']))
+    },
+    {
+        path: 'room-list',
+        loadChildren: () =>
+            import('./room-list/room-list.module').then(
+                m => m.RoomListPageModule
             ),
         ...canActivate(redirectUnauthorizedTo(['login']))
     }

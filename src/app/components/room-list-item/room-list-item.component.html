@@ -1,0 +1,18 @@
+<ion-item>
+    <ion-card>
+        <ion-img [src]="room.image"></ion-img>
+        <ion-card-header>
+            <ion-card-subtitle>{{ room.position }}</ion-card-subtitle>
+            <ion-card-title>{{ room.description }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content
+            style="display: flex; flex-direction: row; justify-content: space-between"
+        >
+            <ion-label>{{ room.price }}</ion-label>
+            <ion-label>
+                {{ room.availableHours }}
+            </ion-label>
+        </ion-card-content>
+    </ion-card>
+</ion-item>

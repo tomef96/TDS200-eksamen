@@ -1,0 +1,22 @@
+<ion-content>
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="scrollToTop()">
+            <ion-icon name="arrow-dropup"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+    <ion-list>
+        <ion-list-header class="ion-padding-horizontal ion-padding-top">
+            <ion-label class="" style="font-size: 2rem;">
+                <b>Rooms</b>
+            </ion-label>
+            <ion-icon
+                [routerLink]="['new-room']"
+                style="font-size: 2rem"
+                name="add-circle"
+            ></ion-icon>
+        </ion-list-header>
+        <ion-searchbar class="ion-padding-horizontal"></ion-searchbar>
+        <app-room-list-item></app-room-list-item>
+        <app-room-list-item></app-room-list-item>
+    </ion-list>
+</ion-content>
