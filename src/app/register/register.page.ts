@@ -15,7 +15,9 @@ export class RegisterPage implements OnInit {
     error: string = null;
     loading = false;
 
-    constructor(private fireAuth: AngularFireAuth, private router: Router) {}
+    constructor(private fireAuth: AngularFireAuth, private router: Router) {
+        console.log('constructor register page');
+    }
 
     ngOnInit() {}
 

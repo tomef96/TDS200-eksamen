@@ -8,6 +8,7 @@ import { RoomListPageRoutingModule } from './room-list-routing.module';
 
 import { RoomListPage } from './room-list.page';
 import { RoomListItemComponent } from '../components/room-list-item/room-list-item.component';
+import { DisplayDatePipe } from '../pipes/display-date.pipe';
 
 @NgModule({
     imports: [
@@ -16,6 +17,7 @@ import { RoomListItemComponent } from '../components/room-list-item/room-list-it
         IonicModule,
         RoomListPageRoutingModule
     ],
-    declarations: [RoomListPage, RoomListItemComponent]
+    exports: [RoomListItemComponent],
+    declarations: [RoomListPage, RoomListItemComponent, DisplayDatePipe]
 })
 export class RoomListPageModule {}

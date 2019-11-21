@@ -7,9 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { NewRoomPageRoutingModule } from './new-room-routing.module';
 
 import { NewRoomPage } from './new-room.page';
+import { RoomListPageModule } from '../room-list.module';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, IonicModule, NewRoomPageRoutingModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        NewRoomPageRoutingModule,
+        RoomListPageModule
+    ],
     declarations: [NewRoomPage]
 })
 export class NewRoomPageModule {}

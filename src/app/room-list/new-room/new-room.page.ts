@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera } from '@ionic-native/camera/ngx';
+import { DbService } from '../../db.service';
 
 @Component({
     selector: 'app-new-room',
@@ -12,18 +13,28 @@ export class NewRoomPage implements OnInit {
         speed: 400
     };
 
-    camera = new Camera();
+    room: IRoom;
 
-    image: string;
+    camera;
 
     slider: any;
 
-    constructor() {}
+    constructor(private db: DbService) {
+        this.camera = new Camera();
+        this.room = {
+            availableEnd: '',
+            availableStart: '',
+            description: '',
+            image: '',
+            position: '',
+            price: 0
+        };
+    }
 
     ngOnInit() {
         this.slider = document.getElementById('slider');
         this.slider.lockSwipes(true);
-        this.takePicture().then(img => (this.image = img));
+        this.takePicture().then(img => (this.room.image = img));
     }
 
     takePicture(): Promise<string> {
@@ -40,6 +51,10 @@ export class NewRoomPage implements OnInit {
 
     postRoom() {
         console.log('Create');
+        console.log(this.room);
+        this.room.availableStart = new Date(this.room.availableStart);
+        this.room.availableEnd = new Date(this.room.availableEnd);
+        this.db.addRoom(this.room);
     }
 
     /**

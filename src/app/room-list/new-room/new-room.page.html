@@ -7,7 +7,7 @@
 <ion-content>
     <ion-slides id="slider" style="height: 100%" [options]="slideOpts">
         <ion-slide>
-            <ion-img [src]="image"></ion-img>
+            <ion-img [src]="room.image"></ion-img>
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-button (click)="goToNextSlide()">
                     <ion-label>
@@ -17,26 +17,55 @@
             </ion-fab>
         </ion-slide>
         <ion-slide>
-            <h1>Slide 2</h1>
+            <div style="display: flex; flex-direction: column;">
+                <ion-item>
+                    <ion-label position="stacked"
+                        >Position
+                        <ion-text color="danger">*</ion-text></ion-label
+                    >
+                    <ion-input [(ngModel)]="room.position"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked"
+                        >Description
+                        <ion-text color="danger">*</ion-text></ion-label
+                    >
+                    <ion-input [(ngModel)]="room.description"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked"
+                        >Price <ion-text color="danger">*</ion-text></ion-label
+                    >
+                    <ion-input [(ngModel)]="room.price"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked"
+                        >Availability
+                        <ion-text color="danger">*</ion-text></ion-label
+                    >
+                    <ion-datetime
+                        [(ngModel)]="room.availableStart"
+                        displayFormat="MM/DD/YYYY/HH:mm"
+                    ></ion-datetime>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked"
+                        >Availability
+                        <ion-text color="danger">*</ion-text></ion-label
+                    >
+                    <ion-datetime
+                        [(ngModel)]="room.availableEnd"
+                        displayFormat="MM/DD/YYYY/HH:mm"
+                    ></ion-datetime>
+                </ion-item>
+            </div>
             <ion-fab vertical="bottom" horizontal="start" slot="fixed">
                 <ion-button (click)="goToPreviousSlide()">Back</ion-button>
             </ion-fab>
 
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-button (click)="goToNextSlide()">
-                    <ion-label>Next</ion-label>
-                </ion-button>
-            </ion-fab>
-        </ion-slide>
-        <ion-slide>
-            <h1>Slide 3</h1>
-            <ion-fab vertical="bottom" horizontal="start" slot="fixed">
-                <ion-button (click)="goToPreviousSlide()">Back</ion-button>
-            </ion-fab>
-            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-button
-                    (click)="goToNextSlide()"
-                    [routerLink]="['/room-list']"
+                <ion-button (click)="postRoom()" [routerLink]="['/room-list']"
                     >Finished</ion-button
                 >
             </ion-fab>

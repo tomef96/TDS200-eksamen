@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-calendar',
@@ -6,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./calendar.page.scss']
 })
 export class CalendarPage implements OnInit {
-    constructor() {}
+    constructor(private auth: AngularFireAuth) {
+        console.log('constructor calendar page');
+    }
 
     ngOnInit() {}
+
+    signOut() {
+        this.auth.auth.signOut();
+    }
 }

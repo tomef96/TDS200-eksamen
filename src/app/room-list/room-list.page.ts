@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { DbService } from '../db.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -13,10 +14,9 @@ export class RoomListPage implements OnInit {
 
     rooms: Observable<IRoom[]>;
 
-    constructor(private db: AngularFirestore) {
-        this.rooms = db.collection('room').valueChanges() as Observable<
-            IRoom[]
-        >;
+    constructor(private db: DbService) {
+        console.log('constructor room-list page');
+        this.rooms = db.subscribeToRooms();
     }
 
     ngOnInit() {}

@@ -8,14 +8,9 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RoomListItemComponent implements OnInit {
     @Input() room: IRoom;
 
-    constructor() {}
-
-    ngOnInit() {
-        this.room.availableStart = new Date(
-            this.room.availableStart.toDate()
-        ).getHours();
-        this.room.availableEnd = new Date(
-            this.room.availableEnd.toDate()
-        ).getHours();
+    constructor() {
+        console.log('constructor room-list-item component');
     }
+
+    ngOnInit() {}
 }

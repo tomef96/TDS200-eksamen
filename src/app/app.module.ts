@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { Camera } from '@ionic-native/camera/ngx';
+import { DisplayDatePipe } from './pipes/display-date.pipe';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyCxsTfXYqgdTTJBBaU_f8mRNpDh4xKD-C4',
@@ -46,6 +47,7 @@ const firebaseConfig = {
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
