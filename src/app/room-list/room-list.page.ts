@@ -12,10 +12,13 @@ import { Observable } from 'rxjs';
 export class RoomListPage implements OnInit {
     @ViewChild(IonContent, null) content: IonContent;
 
+    date: Date;
+
     rooms: Observable<IRoom[]>;
 
     constructor(private db: DbService) {
         console.log('constructor room-list page');
+        this.date = new Date();
         this.rooms = db.subscribeToRooms();
     }
 

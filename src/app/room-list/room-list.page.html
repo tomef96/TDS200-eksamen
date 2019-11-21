@@ -5,7 +5,7 @@
         </ion-fab-button>
     </ion-fab>
     <ion-list>
-        <ion-list-header class="ion-padding-horizontal ion-padding-top">
+        <ion-list-header class="ion-padding">
             <ion-label class="" style="font-size: 2rem;">
                 <b>Rooms</b>
             </ion-label>
@@ -15,7 +15,23 @@
                 name="add-circle"
             ></ion-icon>
         </ion-list-header>
-        <ion-searchbar class="ion-padding-horizontal"></ion-searchbar>
+        <div
+            class="ion-padding-horizontal"
+            style="display: flex; flex-direction: row;"
+        >
+            <div style="display: flex; flex-direction: row;">
+                <ion-icon size="large" name="calendar"></ion-icon>
+                <ion-datetime
+                    style="margin-left: -10px"
+                    value="{{date}}"
+                ></ion-datetime>
+            </div>
+            <div style="display: flex; flex-direction: row;">
+                <ion-icon size="large" name="pin"></ion-icon>
+                <ion-input placeholder="Location"></ion-input>
+            </div>
+        </div>
+        <!--<ion-searchbar class="ion-padding-horizontal"></ion-searchbar>-->
         <div *ngFor="let room of rooms | async">
             <app-room-list-item [room]="room"></app-room-list-item>
         </div>
