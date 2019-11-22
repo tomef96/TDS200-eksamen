@@ -7,17 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { RoomListPageRoutingModule } from './room-list-routing.module';
 
 import { RoomListPage } from './room-list.page';
-import { RoomListItemComponent } from '../components/room-list-item/room-list-item.component';
-import { DisplayDatePipe } from '../pipes/display-date.pipe';
+import { ComponentsModule } from '../components.module';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
-        RoomListPageRoutingModule
+        RoomListPageRoutingModule,
+        ComponentsModule
     ],
-    exports: [RoomListItemComponent],
-    declarations: [RoomListPage, RoomListItemComponent, DisplayDatePipe]
+    exports: [],
+    declarations: [RoomListPage]
 })
 export class RoomListPageModule {}

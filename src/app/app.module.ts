@@ -16,7 +16,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { Camera } from '@ionic-native/camera/ngx';
-import { DisplayDatePipe } from './pipes/display-date.pipe';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyCxsTfXYqgdTTJBBaU_f8mRNpDh4xKD-C4',
@@ -43,6 +43,7 @@ const firebaseConfig = {
     ],
     providers: [
         Camera,
+        Geolocation,
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

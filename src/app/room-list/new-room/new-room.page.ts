@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Camera } from '@ionic-native/camera/ngx';
 import { DbService } from '../../db.service';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-new-room',
@@ -19,27 +21,48 @@ export class NewRoomPage implements OnInit {
 
     slider: any;
 
-    constructor(private db: DbService) {
+    constructor(
+        private db: DbService,
+        private router: Router,
+        private toastController: ToastController
+    ) {
         this.camera = new Camera();
         this.room = {
+            id: null,
             availableEnd: '',
             availableStart: '',
             description: '',
             image: '',
             position: '',
-            price: 0
+            price: 0,
+            booked: false,
+            bookedBy: null
         };
+    }
+
+    presentError(message: string) {
+        this.toastController
+            .create({
+                message,
+                duration: 2000,
+                position: 'top',
+                color: 'danger'
+            })
+            .then(toast => toast.present());
     }
 
     ngOnInit() {
         this.slider = document.getElementById('slider');
         this.slider.lockSwipes(true);
         this.takePicture().then(img => (this.room.image = img));
+        console.log();
     }
 
     takePicture(): Promise<string> {
         return this.camera
-            .getPicture()
+            .getPicture({
+                destinationType: this.camera.DestinationType.DATA_URL
+            })
             .then(b64 => {
                 return `data:image/jpeg;base64,${b64}`;
             })
@@ -50,11 +73,25 @@ export class NewRoomPage implements OnInit {
     }
 
     postRoom() {
-        console.log('Create');
-        console.log(this.room);
-        this.room.availableStart = new Date(this.room.availableStart);
-        this.room.availableEnd = new Date(this.room.availableEnd);
-        this.db.addRoom(this.room);
+        const { availableStart, availableEnd } = this.room;
+
+        const error = Object.keys(this.room).some(key => {
+            const value = this.room[key];
+            return typeof value === 'string' && value.length < 1;
+        });
+
+        if (error) {
+            this.presentError('Required fields are not filled');
+        } else {
+            this.room.availableStart = new Date(availableStart);
+            this.room.availableEnd = new Date(availableEnd);
+            this.db
+                .addRoom(this.room)
+                .then(() => {
+                    this.router.navigate(['/room-list']);
+                })
+                .catch(e => this.presentError(e));
+        }
     }
 
     /**

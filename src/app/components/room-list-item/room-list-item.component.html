@@ -8,7 +8,14 @@
         ></ion-img>
         <ion-card-header>
             <ion-card-subtitle>{{ room.position }}</ion-card-subtitle>
-            <ion-card-title>{{ room.description }}</ion-card-title>
+            <div
+                style="display: flex; flex-direction: row; justify-content: space-between"
+            >
+                <ion-card-title>{{ room.description }}</ion-card-title>
+                <ion-button color="success" fill="outline" *ngIf="bookedByUser"
+                    >Booked</ion-button
+                >
+            </div>
         </ion-card-header>
 
         <ion-card-content

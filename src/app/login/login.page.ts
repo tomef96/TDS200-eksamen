@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-login',
@@ -12,10 +13,13 @@ export class LoginPage implements OnInit {
     email = '';
     password = '';
 
-    error: string = null;
     loading = false;
 
-    constructor(private auth: AuthService, private router: Router) {
+    constructor(
+        private auth: AuthService,
+        private router: Router,
+        private toastController: ToastController
+    ) {
         console.log('constructor login page');
     }
 
@@ -25,16 +29,18 @@ export class LoginPage implements OnInit {
         this.loading = true;
         this.auth
             .signIn(email, password)
-            .then(user => this.router.navigate(['']))
+            .then(() => this.router.navigate(['']))
             .catch(error => {
-                this.setError(error.message);
+                this.presentError(error.message);
+                // this.setError(error.message);
                 this.loading = false;
             });
     }
 
     authenticate(email: string, password: string) {
         if ([email, password].some(i => i.length < 1)) {
-            this.setError('Please fill out all fields');
+            this.presentError('Please fill out all fields');
+            // this.setError('Please fill out all fields');
         } else {
             console.log(email);
             console.log(password);
@@ -42,8 +48,14 @@ export class LoginPage implements OnInit {
         }
     }
 
-    setError(error: string) {
-        this.error = error;
-        setTimeout(() => (this.error = null), 2000);
+    presentError(message: string) {
+        this.toastController
+            .create({
+                message,
+                duration: 2000,
+                position: 'bottom',
+                color: 'danger'
+            })
+            .then(toast => toast.present());
     }
 }

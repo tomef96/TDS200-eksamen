@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { DbService } from '../db.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { LocationService } from '../location.service';
 
 @Component({
     selector: 'app-room-list',
@@ -14,17 +15,33 @@ export class RoomListPage implements OnInit {
 
     date: Date;
 
+    location: string;
+
     rooms: Observable<IRoom[]>;
 
-    constructor(private db: DbService) {
+    constructor(
+        private db: DbService,
+        private router: Router,
+        private locationService: LocationService
+    ) {
         console.log('constructor room-list page');
         this.date = new Date();
         this.rooms = db.subscribeToRooms();
+
+        locationService.getLocation().then(loc => {
+            this.location = `${loc.address.city_district}, ${loc.address.city}`;
+        });
     }
 
     ngOnInit() {}
 
     scrollToTop() {
         this.content.scrollToTop(400);
+    }
+
+    navigateToDetail(room: IRoom) {
+        this.router.navigate([`/room-list/room-detail/${room.id}`], {
+            state: { room }
+        });
     }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../../auth.service';
 
 @Component({
     selector: 'app-room-list-item',
@@ -8,9 +9,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class RoomListItemComponent implements OnInit {
     @Input() room: IRoom;
 
-    constructor() {
+    bookedByUser = false;
+
+    constructor(private auth: AuthService) {
         console.log('constructor room-list-item component');
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.room.bookedBy === this.auth.currentUser) {
+            this.bookedByUser = true;
+        }
+    }
 }

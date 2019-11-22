@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-register',
@@ -12,10 +13,13 @@ export class RegisterPage implements OnInit {
     password = '';
     passwordConfirmation = '';
 
-    error: string = null;
     loading = false;
 
-    constructor(private fireAuth: AngularFireAuth, private router: Router) {
+    constructor(
+        private fireAuth: AngularFireAuth,
+        private router: Router,
+        private toastController: ToastController
+    ) {
         console.log('constructor register page');
     }
 
@@ -33,7 +37,7 @@ export class RegisterPage implements OnInit {
                     });
             })
             .catch(e => {
-                this.setError(e.message);
+                this.presentError(e.message);
                 this.loading = false;
             });
     }
@@ -44,16 +48,22 @@ export class RegisterPage implements OnInit {
         passwordConfirmation: string
     ) {
         if ([email, password, passwordConfirmation].some(i => i.length < 1)) {
-            this.setError('Please fill out all fields');
+            this.presentError('Please fill out all fields');
         } else if (password === passwordConfirmation) {
             this.tryRegisterAndLogin(email, password);
         } else {
-            this.setError('Passwords does not match');
+            this.presentError('Passwords does not match');
         }
     }
 
-    setError(error: string) {
-        this.error = error;
-        setTimeout(() => (this.error = null), 2000);
+    presentError(message: string) {
+        this.toastController
+            .create({
+                message,
+                duration: 2000,
+                position: 'bottom',
+                color: 'danger'
+            })
+            .then(toast => toast.present());
     }
 }

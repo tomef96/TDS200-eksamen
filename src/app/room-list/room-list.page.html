@@ -9,11 +9,11 @@
             <ion-label class="" style="font-size: 2rem;">
                 <b>Rooms</b>
             </ion-label>
-            <ion-icon
-                [routerLink]="['new-room']"
-                style="font-size: 2rem"
-                name="add-circle"
-            ></ion-icon>
+            <ion-buttons>
+                <ion-button [routerLink]="['new-room']">
+                    <ion-icon slot="icon-only" name="add-circle"></ion-icon>
+                </ion-button>
+            </ion-buttons>
         </ion-list-header>
         <div
             class="ion-padding-horizontal"
@@ -28,12 +28,18 @@
             </div>
             <div style="display: flex; flex-direction: row;">
                 <ion-icon size="large" name="pin"></ion-icon>
-                <ion-input placeholder="Location"></ion-input>
+                <ion-input
+                    value="{{location}}"
+                    placeholder="Location"
+                ></ion-input>
             </div>
         </div>
         <!--<ion-searchbar class="ion-padding-horizontal"></ion-searchbar>-->
         <div *ngFor="let room of rooms | async">
-            <app-room-list-item [room]="room"></app-room-list-item>
+            <app-room-list-item
+                (click)="navigateToDetail(room)"
+                [room]="room"
+            ></app-room-list-item>
         </div>
     </ion-list>
 </ion-content>

@@ -5,11 +5,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-progress-bar
-        *ngIf="loading"
-        style="position: fixed"
-        type="indeterminate"
-    ></ion-progress-bar>
+    <app-progress-bar [loading]="loading"></app-progress-bar>
     <form (submit)="authenticate(email, password)">
         <ion-grid
             style="display: flex; flex-direction: column"
