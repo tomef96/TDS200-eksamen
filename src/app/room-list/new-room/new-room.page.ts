@@ -68,25 +68,26 @@ export class NewRoomPage implements OnInit {
             })
             .catch(e => {
                 console.log('Camera issue: ' + e);
-                return 'https://venncubed.co.za/backend/wp-content/uploads/2017/10/placeholder.png';
+                return null;
             });
     }
 
     postRoom() {
-        const { availableStart, availableEnd } = this.room;
+        const { position, description } = this.room;
 
-        const error = Object.keys(this.room).some(key => {
+        const error = Object.keys({ position, description }).some(key => {
             const value = this.room[key];
-            return typeof value === 'string' && value.length < 1;
+            return value.length < 1;
         });
 
         if (error) {
             this.presentError('Required fields are not filled');
         } else {
-            this.room.availableStart = new Date(availableStart);
-            this.room.availableEnd = new Date(availableEnd);
+            const postingRoom = { ...this.room };
+            postingRoom.availableStart = new Date(postingRoom.availableStart);
+            postingRoom.availableEnd = new Date(postingRoom.availableEnd);
             this.db
-                .addRoom(this.room)
+                .addRoom(postingRoom)
                 .then(() => {
                     this.router.navigate(['/room-list']);
                 })

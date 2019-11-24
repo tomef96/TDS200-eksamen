@@ -11,13 +11,13 @@ export class RoomListItemComponent implements OnInit {
 
     bookedByUser = false;
 
-    constructor(private auth: AuthService) {
-        console.log('constructor room-list-item component');
-    }
+    constructor(private auth: AuthService) {}
 
     ngOnInit() {
-        if (this.room.bookedBy === this.auth.currentUser) {
-            this.bookedByUser = true;
-        }
+        this.auth.currentUser.subscribe(user => {
+            if (user && this.room.bookedBy === user.email) {
+                this.bookedByUser = true;
+            }
+        });
     }
 }

@@ -1,6 +1,6 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>calendar</ion-title>
+        <ion-title>Calendar</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="signOut()">
                 <ion-text>Log out</ion-text>
@@ -9,4 +9,22 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+    <ion-list *ngFor="let room of rooms | async">
+        <!--Empty routerLink just to get the styling of a clickable list item-->
+        <ion-item routerLink="" (click)="navigateToDetail(room)">
+            <ion-label>
+                <h2>
+                    {{room.position}}
+                </h2>
+                <h4>
+                    {{room.availableStart | formatDate:"DD.MM"}}
+                </h4>
+                <p>
+                    {{room.availableStart | formatDate:"LT"}} -
+                    {{room.availableEnd | formatDate:"LT"}}
+                </p>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

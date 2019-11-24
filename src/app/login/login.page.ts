@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { ToastController } from '@ionic/angular';
+import { Utils } from '../utils';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +17,7 @@ export class LoginPage implements OnInit {
     constructor(
         private auth: AuthService,
         private router: Router,
-        private toastController: ToastController
+        private utils: Utils
     ) {
         console.log('constructor login page');
     }
@@ -31,16 +30,14 @@ export class LoginPage implements OnInit {
             .signIn(email, password)
             .then(() => this.router.navigate(['']))
             .catch(error => {
-                this.presentError(error.message);
-                // this.setError(error.message);
-                this.loading = false;
-            });
+                this.utils.toast(error.message, 'bottom', 'danger');
+            })
+            .finally(() => this.resetState());
     }
 
     authenticate(email: string, password: string) {
         if ([email, password].some(i => i.length < 1)) {
-            this.presentError('Please fill out all fields');
-            // this.setError('Please fill out all fields');
+            this.utils.toast('Please fill out all fields', 'bottom', 'danger');
         } else {
             console.log(email);
             console.log(password);
@@ -48,14 +45,9 @@ export class LoginPage implements OnInit {
         }
     }
 
-    presentError(message: string) {
-        this.toastController
-            .create({
-                message,
-                duration: 2000,
-                position: 'bottom',
-                color: 'danger'
-            })
-            .then(toast => toast.present());
+    resetState() {
+        this.loading = false;
+        this.email = '';
+        this.password = '';
     }
 }

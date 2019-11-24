@@ -7,7 +7,9 @@
 <ion-content>
     <ion-slides id="slider" style="height: 100%" [options]="slideOpts">
         <ion-slide>
-            <ion-img [src]="room.image"></ion-img>
+            <ion-img
+                [src]="room.image || 'https://venncubed.co.za/backend/wp-content/uploads/2017/10/placeholder.png'"
+            ></ion-img>
             <ion-fab vertical="bottom" horizontal="end" slot="fixed">
                 <ion-button (click)="goToNextSlide()">
                     <ion-label>

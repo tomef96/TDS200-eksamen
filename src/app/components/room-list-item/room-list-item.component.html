@@ -23,9 +23,8 @@
         >
             <ion-label>{{ room.price }}kr/t</ion-label>
             <ion-label>
-                {{ room.availableStart | displayDate }}-{{
-                    room.availableEnd | displayDate
-                }}
+                {{ room.availableStart | formatDate: 'LT' }} -
+                {{ room.availableEnd | formatDate: 'LT' }}
             </ion-label>
         </ion-card-content>
     </ion-card>

@@ -16,7 +16,7 @@ const routes: Routes = [
     {
         path: 'room-detail/:id',
         loadChildren: () =>
-            import('./room-detail/room-detail.module').then(
+            import('../room-detail/room-detail.module').then(
                 m => m.RoomDetailPageModule
             )
     }

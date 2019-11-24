@@ -1,6 +1,6 @@
 <ion-app>
     <ion-router-outlet></ion-router-outlet>
-    <ion-tabs>
+    <ion-tabs *ngIf="authService.currentUser | async">
         <ion-tab-bar>
             <ion-tab-button tab="room-list">
                 <ion-icon name="home"></ion-icon>
